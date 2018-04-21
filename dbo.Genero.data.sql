@@ -1,0 +1,8 @@
+INSERT INTO [dbo].[Genero] ([id_genero], [genero]) VALUES (1, N'Ação')
+INSERT INTO [dbo].[Genero] ([id_genero], [genero]) VALUES (2, N'Comédia')
+INSERT INTO [dbo].[Genero] ([id_genero], [genero]) VALUES (3, N'Drama')
+INSERT INTO [dbo].[Genero] ([id_genero], [genero]) VALUES (4, N'Fição Científica')
+INSERT INTO [dbo].[Genero] ([id_genero], [genero]) VALUES (5, N'Horror')
+INSERT INTO [dbo].[Genero] ([id_genero], [genero]) VALUES (6, N'Thriller')
+INSERT INTO [dbo].[Genero] ([id_genero], [genero]) VALUES (7, N'Guerra')
+INSERT INTO [dbo].[Genero] ([id_genero], [genero]) VALUES (8, N'Animação')

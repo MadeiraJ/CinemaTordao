@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Filmes">
+    <Key>
+      <PropertyRef Name="id_filme" />
+    </Key>
+    <Property Name="id_filme" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome_filme" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="duracao" Type="time" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Filmes_Sala">
+    <Key>
+      <PropertyRef Name="id_filme_sala" />
+    </Key>
+    <Property Name="id_filme_sala" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_filme" Type="int" Nullable="false" />
+    <Property Name="id_sala" Type="int" Nullable="false" />
+    <Property Name="hora" Type="datetime2" Precision="7" />
+    <Property Name="data" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Reservas">
+    <Key>
+      <PropertyRef Name="id_reserva" />
+    </Key>
+    <Property Name="id_reserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_filme_sala" Type="int" />
+    <Property Name="nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="telefone" Type="int" />
+    <Property Name="referencia" Type="int" Nullable="false" />
+    <Property Name="lugar" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Salas">
+    <Key>
+      <PropertyRef Name="id_sala" />
+    </Key>
+    <Property Name="id_sala" Type="int" Nullable="false" />
+    <Property Name="nome_sala" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="lotacao" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Filmes_Sala_Filme">
+    <End Role="Filmes" Type="Self.Filmes" Multiplicity="1" />
+    <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Filmes">
+        <PropertyRef Name="id_filme" />
+      </Principal>
+      <Dependent Role="Filmes_Sala">
+        <PropertyRef Name="id_filme" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Filmes_Sala_Sala">
+    <End Role="Salas" Type="Self.Salas" Multiplicity="1" />
+    <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Salas">
+        <PropertyRef Name="id_sala" />
+      </Principal>
+      <Dependent Role="Filmes_Sala">
+        <PropertyRef Name="id_sala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reservas_ToTable">
+    <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="0..1" />
+    <End Role="Reservas" Type="Self.Reservas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Filmes_Sala">
+        <PropertyRef Name="id_filme_sala" />
+      </Principal>
+      <Dependent Role="Reservas">
+        <PropertyRef Name="id_filme_sala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Filmes" EntityType="Self.Filmes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Filmes_Sala" EntityType="Self.Filmes_Sala" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reservas" EntityType="Self.Reservas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Salas" EntityType="Self.Salas" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Filmes_Sala_Filme" Association="Self.FK_Filmes_Sala_Filme">
+      <End Role="Filmes" EntitySet="Filmes" />
+      <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Filmes_Sala_Sala" Association="Self.FK_Filmes_Sala_Sala">
+      <End Role="Salas" EntitySet="Salas" />
+      <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reservas_ToTable" Association="Self.FK_Reservas_ToTable">
+      <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+      <End Role="Reservas" EntitySet="Reservas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

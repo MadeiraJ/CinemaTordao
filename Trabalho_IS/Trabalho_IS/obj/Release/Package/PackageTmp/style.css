@@ -1,0 +1,161 @@
+﻿.logo {
+    height: 40px;
+}
+
+    .logo:hover {
+        filter: saturate(5);
+    }
+
+.images {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+.indisponivel {
+    filter: grayscale();
+}
+
+.escolhido {
+    filter: saturate(160%);
+}
+
+.cadeira {
+    width: 60px;
+}
+
+.w3-col s3 {
+    width: auto !important;
+    position: relative !important;
+    float: left !important;
+}
+
+.ul_1 {
+    list-style-type: none !important;
+}
+
+.w3-col s3 li {
+    width: 24.99999% !important;
+    float: left !important;
+    position: relative !important;
+}
+
+.sub_menu {
+    border: none;
+    display: inline-block;
+    outline: 0;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none !important;
+    color: #f1f1f1;
+    width: 100px;
+    background-color: #707070;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    list-style: none !important;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    list-style: none;
+}
+
+    .sub_menu:disabled {
+        cursor: not-allowed;
+        opacity: 0.3
+    }
+
+.w3-dropdown-hover:hover > .sub_menu:first-child,
+.w3-dropdown-click:hover > .sub_menu:first-child {
+    background-color: #ccc;
+    color: #000
+}
+
+.w3-bar-block .w3-dropdown-hover .sub_menu,
+.w3-bar-block .w3-dropdown-click .sub_menu {
+    width: 100%;
+    text-align: left;
+    padding: 8px 16px
+}
+
+.w3-bar .sub_menu {
+    white-space: normal
+}
+
+@media (max-width:600px) {
+    .w3-dropdown-hover.w3-mobile .sub_menu,
+    .w3-dropdown-click.w3-mobile .sub_menu {
+        width: 100%;
+    }
+}
+
+.sub_menu:hover {
+    color: #000 !important;
+    background-color: #ccc !important;
+    list-style: none;
+}
+
+.lTema {
+    float: right !important;
+    margin-top: 10px;
+    margin-right: 20px;
+    font: bold !important;
+    color: black;
+}
+
+.tema:hover, .tema:active, .tema.active {
+    border-color: #707070;
+}
+
+.tema ul li.selected {
+    background-color: #707070;
+    color: darkgray;
+}
+
+.tema ul {
+    border: #707070 1px solid;
+}
+
+.tema {
+    margin-top: 10px;
+    margin-right: 10px;
+    float: right !important;
+    background-color: #707070;
+    border: #707070 1px solid;
+    border-radius: 4px;
+    color: white;
+    width: 100px;
+    height: 25px;
+}
+
+    .tema:hover, .tema.active {
+        background-color: #707070;
+    }
+
+.home1 {
+    background-color: white !important;
+}
+
+.home2 {
+    background-color: #e2e1e1 !important;
+}
+
+.cabecalho1 {
+    background-color: #f1f1f1 !important;
+    color: black !important;
+}
+
+.cabecalho2 {
+    background-color: #555555 !important;
+    color: white !important;
+}
+
+.filmesFoto {
+    height: 900px !important;
+}

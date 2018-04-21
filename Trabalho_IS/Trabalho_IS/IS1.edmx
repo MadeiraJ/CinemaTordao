@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Filmes">
+          <Key>
+            <PropertyRef Name="id_filme" />
+          </Key>
+          <Property Name="id_filme" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome_filme" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="duracao" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Filmes_Sala">
+          <Key>
+            <PropertyRef Name="id_filme_sala" />
+          </Key>
+          <Property Name="id_filme_sala" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_filme" Type="int" Nullable="false" />
+          <Property Name="id_sala" Type="int" Nullable="false" />
+          <Property Name="hora" Type="datetime2" Precision="7" />
+          <Property Name="data" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Reservas">
+          <Key>
+            <PropertyRef Name="id_reserva" />
+          </Key>
+          <Property Name="id_reserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_filme_sala" Type="int" />
+          <Property Name="nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="telefone" Type="int" />
+          <Property Name="referencia" Type="int" Nullable="false" />
+          <Property Name="lugar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salas">
+          <Key>
+            <PropertyRef Name="id_sala" />
+          </Key>
+          <Property Name="id_sala" Type="int" Nullable="false" />
+          <Property Name="nome_sala" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lotacao" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Filmes_Sala_Filme">
+          <End Role="Filmes" Type="Self.Filmes" Multiplicity="1" />
+          <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filmes">
+              <PropertyRef Name="id_filme" />
+            </Principal>
+            <Dependent Role="Filmes_Sala">
+              <PropertyRef Name="id_filme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filmes_Sala_Sala">
+          <End Role="Salas" Type="Self.Salas" Multiplicity="1" />
+          <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salas">
+              <PropertyRef Name="id_sala" />
+            </Principal>
+            <Dependent Role="Filmes_Sala">
+              <PropertyRef Name="id_sala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservas_ToTable">
+          <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="0..1" />
+          <End Role="Reservas" Type="Self.Reservas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filmes_Sala">
+              <PropertyRef Name="id_filme_sala" />
+            </Principal>
+            <Dependent Role="Reservas">
+              <PropertyRef Name="id_filme_sala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Filmes" EntityType="Self.Filmes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Filmes_Sala" EntityType="Self.Filmes_Sala" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservas" EntityType="Self.Reservas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salas" EntityType="Self.Salas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Filmes_Sala_Filme" Association="Self.FK_Filmes_Sala_Filme">
+            <End Role="Filmes" EntitySet="Filmes" />
+            <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filmes_Sala_Sala" Association="Self.FK_Filmes_Sala_Sala">
+            <End Role="Salas" EntitySet="Salas" />
+            <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservas_ToTable" Association="Self.FK_Reservas_ToTable">
+            <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+            <End Role="Reservas" EntitySet="Reservas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Filmes">
+          <Key>
+            <PropertyRef Name="id_filme" />
+          </Key>
+          <Property Name="id_filme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome_filme" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="duracao" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Filmes_Sala" Relationship="Self.FK_Filmes_Sala_Filme" FromRole="Filmes" ToRole="Filmes_Sala" />
+        </EntityType>
+        <EntityType Name="Filmes_Sala">
+          <Key>
+            <PropertyRef Name="id_filme_sala" />
+          </Key>
+          <Property Name="id_filme_sala" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_filme" Type="Int32" Nullable="false" />
+          <Property Name="id_sala" Type="Int32" Nullable="false" />
+          <Property Name="hora" Type="DateTime" Precision="7" />
+          <Property Name="data" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Filmes" Relationship="Self.FK_Filmes_Sala_Filme" FromRole="Filmes_Sala" ToRole="Filmes" />
+          <NavigationProperty Name="Salas" Relationship="Self.FK_Filmes_Sala_Sala" FromRole="Filmes_Sala" ToRole="Salas" />
+          <NavigationProperty Name="Reservas" Relationship="Self.FK_Reservas_ToTable" FromRole="Filmes_Sala" ToRole="Reservas" />
+        </EntityType>
+        <EntityType Name="Reservas">
+          <Key>
+            <PropertyRef Name="id_reserva" />
+          </Key>
+          <Property Name="id_reserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_filme_sala" Type="Int32" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telefone" Type="Int32" />
+          <Property Name="referencia" Type="Int32" Nullable="false" />
+          <Property Name="lugar" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Filmes_Sala" Relationship="Self.FK_Reservas_ToTable" FromRole="Reservas" ToRole="Filmes_Sala" />
+        </EntityType>
+        <EntityType Name="Salas">
+          <Key>
+            <PropertyRef Name="id_sala" />
+          </Key>
+          <Property Name="id_sala" Type="Int32" Nullable="false" />
+          <Property Name="nome_sala" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lotacao" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Filmes_Sala" Relationship="Self.FK_Filmes_Sala_Sala" FromRole="Salas" ToRole="Filmes_Sala" />
+        </EntityType>
+        <Association Name="FK_Filmes_Sala_Filme">
+          <End Role="Filmes" Type="Self.Filmes" Multiplicity="1" />
+          <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filmes">
+              <PropertyRef Name="id_filme" />
+            </Principal>
+            <Dependent Role="Filmes_Sala">
+              <PropertyRef Name="id_filme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filmes_Sala_Sala">
+          <End Role="Salas" Type="Self.Salas" Multiplicity="1" />
+          <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salas">
+              <PropertyRef Name="id_sala" />
+            </Principal>
+            <Dependent Role="Filmes_Sala">
+              <PropertyRef Name="id_sala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservas_ToTable">
+          <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="0..1" />
+          <End Role="Reservas" Type="Self.Reservas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filmes_Sala">
+              <PropertyRef Name="id_filme_sala" />
+            </Principal>
+            <Dependent Role="Reservas">
+              <PropertyRef Name="id_filme_sala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Trabalho_IS1Entities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Filmes" EntityType="Self.Filmes" />
+          <EntitySet Name="Filmes_Sala" EntityType="Self.Filmes_Sala" />
+          <EntitySet Name="Reservas" EntityType="Self.Reservas" />
+          <EntitySet Name="Salas" EntityType="Self.Salas" />
+          <AssociationSet Name="FK_Filmes_Sala_Filme" Association="Self.FK_Filmes_Sala_Filme">
+            <End Role="Filmes" EntitySet="Filmes" />
+            <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filmes_Sala_Sala" Association="Self.FK_Filmes_Sala_Sala">
+            <End Role="Salas" EntitySet="Salas" />
+            <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservas_ToTable" Association="Self.FK_Reservas_ToTable">
+            <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+            <End Role="Reservas" EntitySet="Reservas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Trabalho_IS1Entities4">
+          <EntitySetMapping Name="Filmes">
+            <EntityTypeMapping TypeName="Model.Filmes">
+              <MappingFragment StoreEntitySet="Filmes">
+                <ScalarProperty Name="id_filme" ColumnName="id_filme" />
+                <ScalarProperty Name="nome_filme" ColumnName="nome_filme" />
+                <ScalarProperty Name="duracao" ColumnName="duracao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filmes_Sala">
+            <EntityTypeMapping TypeName="Model.Filmes_Sala">
+              <MappingFragment StoreEntitySet="Filmes_Sala">
+                <ScalarProperty Name="id_filme_sala" ColumnName="id_filme_sala" />
+                <ScalarProperty Name="id_filme" ColumnName="id_filme" />
+                <ScalarProperty Name="id_sala" ColumnName="id_sala" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservas">
+            <EntityTypeMapping TypeName="Model.Reservas">
+              <MappingFragment StoreEntitySet="Reservas">
+                <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+                <ScalarProperty Name="id_filme_sala" ColumnName="id_filme_sala" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="referencia" ColumnName="referencia" />
+                <ScalarProperty Name="lugar" ColumnName="lugar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salas">
+            <EntityTypeMapping TypeName="Model.Salas">
+              <MappingFragment StoreEntitySet="Salas">
+                <ScalarProperty Name="id_sala" ColumnName="id_sala" />
+                <ScalarProperty Name="nome_sala" ColumnName="nome_sala" />
+                <ScalarProperty Name="lotacao" ColumnName="lotacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

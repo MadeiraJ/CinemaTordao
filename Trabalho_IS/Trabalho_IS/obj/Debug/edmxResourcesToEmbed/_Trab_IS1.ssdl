@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Filmes">
+    <Key>
+      <PropertyRef Name="id_filme" />
+    </Key>
+    <Property Name="id_filme" Type="int" Nullable="false" />
+    <Property Name="nome_filme" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="genero" Type="int" Nullable="false" />
+    <Property Name="duracao" Type="time" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Filmes_Sala">
+    <Key>
+      <PropertyRef Name="id_filme" />
+      <PropertyRef Name="id_sala" />
+      <PropertyRef Name="hora_inicio" />
+      <PropertyRef Name="data" />
+    </Key>
+    <Property Name="id_filme" Type="int" Nullable="false" />
+    <Property Name="id_sala" Type="int" Nullable="false" />
+    <Property Name="hora_inicio" Type="time" Precision="7" Nullable="false" />
+    <Property Name="data" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Genero">
+    <Key>
+      <PropertyRef Name="id_genero" />
+    </Key>
+    <Property Name="id_genero" Type="int" Nullable="false" />
+    <Property Name="genero" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reserva_Lugares">
+    <Key>
+      <PropertyRef Name="id_reserva" />
+      <PropertyRef Name="lugar" />
+    </Key>
+    <Property Name="id_reserva" Type="int" Nullable="false" />
+    <Property Name="lugar" Type="nchar" MaxLength="3" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reservas">
+    <Key>
+      <PropertyRef Name="id_reserva" />
+      <PropertyRef Name="id_filme" />
+      <PropertyRef Name="id_sala" />
+    </Key>
+    <Property Name="id_reserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_filme" Type="int" Nullable="false" />
+    <Property Name="id_sala" Type="int" Nullable="false" />
+    <Property Name="hora_inicio" Type="time" Precision="7" Nullable="false" />
+    <Property Name="referencia" Type="int" Nullable="false" />
+    <Property Name="id_utilizador" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Salas">
+    <Key>
+      <PropertyRef Name="id_sala" />
+    </Key>
+    <Property Name="id_sala" Type="int" Nullable="false" />
+    <Property Name="nome_sala" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="lotacao" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Filmes_Sala_ToTable">
+    <End Role="Salas" Type="Self.Salas" Multiplicity="1" />
+    <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Salas">
+        <PropertyRef Name="id_sala" />
+      </Principal>
+      <Dependent Role="Filmes_Sala">
+        <PropertyRef Name="id_sala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Filmes_ToTable">
+    <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+    <End Role="Filmes" Type="Self.Filmes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genero">
+        <PropertyRef Name="id_genero" />
+      </Principal>
+      <Dependent Role="Filmes">
+        <PropertyRef Name="genero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Filmes" EntityType="Self.Filmes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Filmes_Sala" EntityType="Self.Filmes_Sala" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Genero" EntityType="Self.Genero" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reserva_Lugares" EntityType="Self.Reserva_Lugares" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reservas" EntityType="Self.Reservas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Salas" EntityType="Self.Salas" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Filmes_Sala_ToTable" Association="Self.FK_Filmes_Sala_ToTable">
+      <End Role="Salas" EntitySet="Salas" />
+      <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Filmes_ToTable" Association="Self.FK_Filmes_ToTable">
+      <End Role="Genero" EntitySet="Genero" />
+      <End Role="Filmes" EntitySet="Filmes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Trabalho_IS1Entities4">
+    <EntitySetMapping Name="Filmes">
+      <EntityTypeMapping TypeName="Model.Filmes">
+        <MappingFragment StoreEntitySet="Filmes">
+          <ScalarProperty Name="id_filme" ColumnName="id_filme" />
+          <ScalarProperty Name="nome_filme" ColumnName="nome_filme" />
+          <ScalarProperty Name="duracao" ColumnName="duracao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Filmes_Sala">
+      <EntityTypeMapping TypeName="Model.Filmes_Sala">
+        <MappingFragment StoreEntitySet="Filmes_Sala">
+          <ScalarProperty Name="id_filme_sala" ColumnName="id_filme_sala" />
+          <ScalarProperty Name="id_filme" ColumnName="id_filme" />
+          <ScalarProperty Name="id_sala" ColumnName="id_sala" />
+          <ScalarProperty Name="hora" ColumnName="hora" />
+          <ScalarProperty Name="data" ColumnName="data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reservas">
+      <EntityTypeMapping TypeName="Model.Reservas">
+        <MappingFragment StoreEntitySet="Reservas">
+          <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+          <ScalarProperty Name="id_filme_sala" ColumnName="id_filme_sala" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="telefone" ColumnName="telefone" />
+          <ScalarProperty Name="referencia" ColumnName="referencia" />
+          <ScalarProperty Name="lugar" ColumnName="lugar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Salas">
+      <EntityTypeMapping TypeName="Model.Salas">
+        <MappingFragment StoreEntitySet="Salas">
+          <ScalarProperty Name="id_sala" ColumnName="id_sala" />
+          <ScalarProperty Name="nome_sala" ColumnName="nome_sala" />
+          <ScalarProperty Name="lotacao" ColumnName="lotacao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Filme">
+    <Key>
+      <PropertyRef Name="id_filme" />
+    </Key>
+    <Property Name="id_filme" Type="Int32" Nullable="false" />
+    <Property Name="nome_filme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="genero" Type="Int32" Nullable="false" />
+    <Property Name="duracao" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Genero1" Relationship="Self.FK_Filmes_ToTable" FromRole="Filmes" ToRole="Genero" />
+  </EntityType>
+  <EntityType Name="Filmes_Sala">
+    <Key>
+      <PropertyRef Name="id_filme" />
+      <PropertyRef Name="id_sala" />
+      <PropertyRef Name="hora_inicio" />
+      <PropertyRef Name="data" />
+    </Key>
+    <Property Name="id_filme" Type="Int32" Nullable="false" />
+    <Property Name="id_sala" Type="Int32" Nullable="false" />
+    <Property Name="hora_inicio" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="data" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Sala" Relationship="Self.FK_Filmes_Sala_ToTable" FromRole="Filmes_Sala" ToRole="Salas" />
+  </EntityType>
+  <EntityType Name="Genero">
+    <Key>
+      <PropertyRef Name="id_genero" />
+    </Key>
+    <Property Name="id_genero" Type="Int32" Nullable="false" />
+    <Property Name="genero1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Filmes" Relationship="Self.FK_Filmes_ToTable" FromRole="Genero" ToRole="Filmes" />
+  </EntityType>
+  <EntityType Name="Reserva_Lugares">
+    <Key>
+      <PropertyRef Name="id_reserva" />
+      <PropertyRef Name="lugar" />
+    </Key>
+    <Property Name="id_reserva" Type="Int32" Nullable="false" />
+    <Property Name="lugar" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reserva">
+    <Key>
+      <PropertyRef Name="id_reserva" />
+      <PropertyRef Name="id_filme" />
+      <PropertyRef Name="id_sala" />
+    </Key>
+    <Property Name="id_reserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_filme" Type="Int32" Nullable="false" />
+    <Property Name="id_sala" Type="Int32" Nullable="false" />
+    <Property Name="hora_inicio" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="referencia" Type="Int32" Nullable="false" />
+    <Property Name="id_utilizador" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Utilizadore" Relationship="Self.FK_Reservas_ToTable" FromRole="Reservas" ToRole="Utilizadores" />
+  </EntityType>
+  <EntityType Name="Sala">
+    <Key>
+      <PropertyRef Name="id_sala" />
+    </Key>
+    <Property Name="id_sala" Type="Int32" Nullable="false" />
+    <Property Name="nome_sala" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lotacao" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Filmes_Sala" Relationship="Self.FK_Filmes_Sala_ToTable" FromRole="Salas" ToRole="Filmes_Sala" />
+  </EntityType>
+  <EntityType Name="Utilizadore">
+    <Key>
+      <PropertyRef Name="id_utilizador" />
+    </Key>
+    <Property Name="id_utilizador" Type="Int32" Nullable="false" />
+    <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="n_telefone" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Reservas" Relationship="Self.FK_Reservas_ToTable" FromRole="Utilizadores" ToRole="Reservas" />
+  </EntityType>
+  <Association Name="FK_Filmes_ToTable">
+    <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+    <End Role="Filmes" Type="Self.Filme" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genero">
+        <PropertyRef Name="id_genero" />
+      </Principal>
+      <Dependent Role="Filmes">
+        <PropertyRef Name="genero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Filmes_Sala_ToTable">
+    <End Role="Salas" Type="Self.Sala" Multiplicity="1" />
+    <End Role="Filmes_Sala" Type="Self.Filmes_Sala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Salas">
+        <PropertyRef Name="id_sala" />
+      </Principal>
+      <Dependent Role="Filmes_Sala">
+        <PropertyRef Name="id_sala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reservas_ToTable">
+    <End Role="Utilizadores" Type="Self.Utilizadore" Multiplicity="1" />
+    <End Role="Reservas" Type="Self.Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilizadores">
+        <PropertyRef Name="id_utilizador" />
+      </Principal>
+      <Dependent Role="Reservas">
+        <PropertyRef Name="id_utilizador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Trabalho_IS1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Filmes" EntityType="Self.Filme" />
+    <EntitySet Name="Filmes_Sala" EntityType="Self.Filmes_Sala" />
+    <EntitySet Name="Generoes" EntityType="Self.Genero" />
+    <EntitySet Name="Reserva_Lugares" EntityType="Self.Reserva_Lugares" />
+    <EntitySet Name="Reservas" EntityType="Self.Reserva" />
+    <EntitySet Name="Salas" EntityType="Self.Sala" />
+    <EntitySet Name="Utilizadores" EntityType="Self.Utilizadore" />
+    <AssociationSet Name="FK_Filmes_ToTable" Association="Self.FK_Filmes_ToTable">
+      <End Role="Genero" EntitySet="Generoes" />
+      <End Role="Filmes" EntitySet="Filmes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Filmes_Sala_ToTable" Association="Self.FK_Filmes_Sala_ToTable">
+      <End Role="Salas" EntitySet="Salas" />
+      <End Role="Filmes_Sala" EntitySet="Filmes_Sala" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reservas_ToTable" Association="Self.FK_Reservas_ToTable">
+      <End Role="Utilizadores" EntitySet="Utilizadores" />
+      <End Role="Reservas" EntitySet="Reservas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

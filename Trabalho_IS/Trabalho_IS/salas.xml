@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cinema>
+    <sala>
+        <nome>Caixinha</nome>
+        <nlugares>30 lugares</nlugares>		
+    </sala>
+    <sala>
+        <nome>Carvão</nome>
+        <nlugares>20 lugares</nlugares>
+    </sala>
+    <sala>
+        <nome>Woody</nome>
+        <nlugares>20 lugares</nlugares>
+    </sala>
+    <sala>
+        <nome>Naki</nome>
+        <nlugares>20 lugares</nlugares>
+    </sala>
+    <sala>
+        <nome>Xoninhas</nome>
+        <nlugares>20 lugares</nlugares>
+    </sala>
+</cinema>

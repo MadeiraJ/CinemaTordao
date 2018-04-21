@@ -1,0 +1,5 @@
+INSERT INTO [dbo].[Salas] ([id_sala], [nome_sala], [lotacao]) VALUES (1, N'Caixinha', 30)
+INSERT INTO [dbo].[Salas] ([id_sala], [nome_sala], [lotacao]) VALUES (2, N'Carvão', 20)
+INSERT INTO [dbo].[Salas] ([id_sala], [nome_sala], [lotacao]) VALUES (3, N'Woody', 20)
+INSERT INTO [dbo].[Salas] ([id_sala], [nome_sala], [lotacao]) VALUES (4, N'Naki', 20)
+INSERT INTO [dbo].[Salas] ([id_sala], [nome_sala], [lotacao]) VALUES (5, N'Xoninha', 20)

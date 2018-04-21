@@ -1,0 +1,47 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="Trabalho_IS.Site1" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head runat="server">
+        <title>Cinema Tordão</title>
+        <asp:ContentPlaceHolder ID="head" runat="server">
+        </asp:ContentPlaceHolder>
+        <link href="w3.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="style.css" rel="stylesheet" type="text/css" media="all" />
+        <%-- <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="w3.css">
+        <link rel="stylesheet" href="css">
+        <link rel="stylesheet" href="font-awesome.min.css">
+        <link rel="stylesheet" href="style.css"> --%>
+        <script src="scripts/slider.js"></script>     
+    </head>
+    <body>
+        <form id="form1" runat="server">
+            <asp:ScriptManager ID="ScriptManager1" runat="server"> 
+            </asp:ScriptManager>
+            <div id="homepage">
+                <nav id="w3-top">
+                    <asp:Menu ID="Menu1" CssClass="w3-row w3-large w3-light-grey" runat="server" Orientation="Horizontal" DataSourceID="SiteMapDataSource1" StaticEnableDefaultPopOutImage="False" RenderingMode="List" StaticSubMenuIndent="16px" IncludeStyleBlock="False">                                                        
+                        <StaticSelectedStyle CssClass="w3-col s3" />
+                        <StaticMenuItemStyle CssClass="w3-button w3-block" />
+                        <StaticMenuStyle CssClass="ul_1" />
+                    </asp:Menu>
+                    <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" ShowStartingNode="False" />
+                </nav>
+                <asp:ContentPlaceHolder ID="cpMainContent" runat="server">
+                </asp:ContentPlaceHolder>
+                <footer class="w3-container w3-padding-32 w3-light-grey w3-center">
+                    <div class="w3-xlarge w3-section">
+                        <br/>
+                        <br/>
+                        <asp:Image ID="face" runat="server" class="logo" src="images/logos/facebook color.svg"/>
+                        <asp:Image ID="inst" runat="server" class="logo" src="images/logos/instagram color.svg"/>
+                        <asp:Image ID="twi" runat="server" class="logo" src="images/logos/twitter color.svg"/>
+                        <asp:Image ID="you" runat="server" class="logo" src="images/logos/youtube color.svg"/>
+                    </div>
+                    <p>Powered by CopyPaste</p>
+                </footer>
+            </div>        
+        </form>
+    </body>
+</html>
